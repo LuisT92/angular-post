@@ -1,0 +1,10 @@
+<h2>Detalles {{reporte.name}}</h2>
+<div><span>id: </span>{{reporte.id}}</div>
+<div><span>name: </span>{{reporte.name}}</div>
+
+<ul class="reportes">
+  <li *nfog="let reporte of reportes"
+  [class.selected]="reporte === selectedReporte" (click)="onSelect(reporte)">
+    <span class="badge">{{reporte.id}}</span> {{reporte.name}}
+  </li>
+</ul>
