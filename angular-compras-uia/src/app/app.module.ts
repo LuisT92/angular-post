@@ -1,22 +1,26 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import {FormsModule} from '@angular/forms'
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
-import {ReportesComponent} from './reportes/reportes.component';
+import { ReportesComponenteComponent } from './reportes-componente/reportes-componente.component';
+import { ProveedoresComponentComponent } from './proveedores/proveedores.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ReporteDetalleComponent } from './reporte-detalle/reporte-detalle.component';
+import { ProveedorDetalleComponent } from './proveedor-detalle/proveedor-detalle.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ReportesComponent
+    ReportesComponenteComponent,
+    ProveedoresComponentComponent,
+    ReporteDetalleComponent,
+    ProveedorDetalleComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

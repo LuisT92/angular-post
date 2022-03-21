@@ -35,7 +35,7 @@ public class GestorCompras {
     //HashMap<Integer, ArrayList<InfoComprasUIA>> misSolicitudesOC;
     HashMap<Integer, Cotizacion> misCotizacionesOrdenCompra;
     ArrayList<CotizacionModelo> miModeloCotizaciones;
-    ArrayList<ItemReporteModelo> miModeloReportes;
+    ArrayList<ReporteModelo> miModeloReportes;
     ArrayList<SolicitudOCModelo> miModeloSolicitudesOC = new ArrayList<SolicitudOCModelo>();
 
     ObjectMapper mapper = new ObjectMapper();
@@ -45,7 +45,7 @@ public class GestorCompras {
 
         try {
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            miReporteNS = mapper.readValue(new FileInputStream("C:\\Users\\LENOVO\\Desktop\\apirest1\\arregloItemsV1.json"), ListaReportesNivelStock.class);
+            miReporteNS = mapper.readValue(new FileInputStream("C:\\Users\\LENOVO\\Desktop\\Cuarto Semestre\\Arquitectura\\angular-post\\apirest1\\arregloItemsV1.json"), ListaReportesNivelStock.class);
 
         } catch (JsonParseException e) {
             // TODO Auto-generated catch block
@@ -96,7 +96,7 @@ public class GestorCompras {
                 SolicitudOrdenCompra newSolicitud = new SolicitudOrdenCompra(idCompra, "SOC-" + idCompra, "", "", 0, item.getKey(), soc.getKey());
                 newSolicitud.setItems(soc.getValue());
                 misSolicitudesOC.add(newSolicitud);
-                mapper.writeValue(new File("C:\\Users\\LENOVO\\Desktop\\apirest1\\src\\main\\java\\uia\\com\\apirest1\\compras\\SolicitudOrdenCompra.java-" + newSolicitud.getName() + ".json"), newSolicitud);
+                mapper.writeValue(new File("C:\\Users\\LENOVO\\Desktop\\Cuarto Semestre\\Arquitectura\\angular-post\\apirest1\\SolicitudOrdenCompra-" + newSolicitud.getName() + ".json"), newSolicitud);
             }
         }
 
@@ -228,13 +228,20 @@ public class GestorCompras {
         return this.getCotizacion(id);
     }
 
-    public ArrayList<ItemReporteModelo> getReportes() {
-        miModeloReportes = new ArrayList<ItemReporteModelo>();
+    public ArrayList<ReporteModelo> getReportes() {
+        miModeloReportes = new ArrayList<ReporteModelo>();
 
         for (int i = 0; i < miReporteNS.getItems().size(); i++) {
-
+            //   CotizacionModelo(int id, String name, String codigo,  int vendedor, int clasificacionVendedor, double total, int entrega)
+            ReporteModelo item = new ReporteModelo(miReporteNS.getItems().get(i).getId()
+                    , miReporteNS.getItems().get(i).getName()
+                    , miReporteNS.getItems().get(i).getCodigo()
+                    , miReporteNS.getItems().get(i).getVendedor()
+                    , miReporteNS.getItems().get(i).getClasificacion()
+                    , miReporteNS.getItems().get(i).getExistenciaMinima()
+                    , miReporteNS.getItems().get(i).getExistencia()
+                    , miReporteNS.getItems().get(i).getConsumo());
             if (miReporteNS.getItems().get(i).getItems() != null) {
-
                 ArrayList<ItemComprasUIAModelo> misItemsReportes = new ArrayList<ItemComprasUIAModelo>();
                 for (int j = 0; j < miReporteNS.getItems().get(i).getItems().size(); j++) {
                     //ItemReporteModelo(int cantidad, double valorUnitario, double subtotal, double total)
@@ -251,6 +258,8 @@ public class GestorCompras {
                     nodo.setId(miReporteNS.getItems().get(i).getId() + 1 + j);
                     misItemsReportes.add(nodo);
                 }
+                item.setItems(misItemsReportes);
+                miModeloReportes.add(item);
             }
         }
 
@@ -258,7 +267,7 @@ public class GestorCompras {
 
     }
 
-    public ItemReporteModelo getReporte(int id) {
+    public ReporteModelo getReporte(int id) {
         if (this.miModeloReportes == null)
             this.getReportes();
         for (int i = 0; i < this.miModeloReportes.size(); i++) {

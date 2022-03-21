@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uia.com.apirest1.compras.GestorCompras;
 import uia.com.apirest1.modelo.ItemComprasUIAModelo;
-import uia.com.apirest1.modelo.ItemReporteModelo;
 import uia.com.apirest1.modelo.ReporteModelo;
 
 import java.io.IOException;
@@ -25,12 +24,12 @@ public class ReportesServicio implements IReporteServicio {
     }
 
     @Override
-    public ArrayList<ItemReporteModelo> getReportes() {
+    public ArrayList<ReporteModelo> getReportes() {
         return miGestorCompras.getReportes();
     }
 
     @Override
-    public ItemReporteModelo getReporte(int id)
+    public ReporteModelo getReporte(int id)
     {
         return miGestorCompras.getReporte(id);
     }

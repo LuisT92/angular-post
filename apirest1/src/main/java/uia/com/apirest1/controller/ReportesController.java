@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import uia.com.apirest1.modelo.ItemComprasUIAModelo;
-import uia.com.apirest1.modelo.ItemReporteModelo;
 import uia.com.apirest1.modelo.ReporteModelo;
 import uia.com.apirest1.servicio.ReportesServicio;
 
@@ -22,14 +21,14 @@ public class ReportesController
         this.servicioReportes = servicio;
     }
     @GetMapping("/reportes")
-    public ArrayList<ItemReporteModelo> viewReportes(ModelMap model)
+    public ArrayList<ReporteModelo> viewReportes(ModelMap model)
     {
-        ArrayList<ItemReporteModelo> reportes = servicioReportes.getReportes();
+        ArrayList<ReporteModelo> reportes = servicioReportes.getReportes();
         System.out.println("Reportes: " + reportes.toString());
         return servicioReportes.getReportes();
     }
     @GetMapping("/reporte/{id}")
-    public ItemReporteModelo reporteById(@PathVariable int id)
+    public ReporteModelo reporteById(@PathVariable int id)
     {
         return  servicioReportes.getReporte(id);
     }

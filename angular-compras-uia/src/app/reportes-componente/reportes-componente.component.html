@@ -1,0 +1,30 @@
+<h2>Detallees {{reporte.name}}</h2>
+<div><span>id: </span>{{reporte.id}}</div>
+
+<ul class="reportes">
+    <li *ngFor="let reporte of reportes"
+    [class.selected]="reporte === selectedReporte"
+    (click)="onSelect(reporte)">
+    <span class="badge">{{reporte.id}}</span>{{reporte.name}}
+    </li>
+</ul>
+
+<app-reporte-detalle [reporte]="selectedReporte"></app-reporte-detalle>
+
+<h2>Agregar Reporte</h2>
+
+<div>
+    <form appearence="fill">
+        <label>Nombre</label>
+        <input matInput for="new-reporte" #reporteName> 
+    </form>
+
+    <form appearence="fill">
+        <label>Id:</label>
+        <input matInput for="new-reporte" #reporteId> 
+    </form>
+
+    <button class="add-button" (click)="agregar(reporteName.value,reporteId.value); reporteName.value=''
+    ;reporteId.value=''">agregar reporte
+    </button>
+</div>
